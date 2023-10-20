@@ -1,47 +1,122 @@
-body {
-    font-family: Arial, sans-serif;
+/* Reset some default styles */
+body, h1, h2, p, a {
     margin: 0;
     padding: 0;
 }
 
-.page-section {
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(45deg, #ff5733, #ffbb33); /* Gradient background */
+    margin: 0;
+    padding: 0;
+    transition: background 0.5s;
+}
+
+header {
+    background: linear-gradient(45deg, #ff5733, #ffbb33); /* Gradient background */
+    color: white;
+    text-align: center;
     padding: 20px;
-    margin: 20px 0;
-    border: 1px solid #ccc;
+    transition: background 0.5s;
 }
 
-#section1 {
-    background-color: #e6f7ff;
+.header-title {
+    font-size: 28px;
 }
 
-#section2 {
-    background-color: #ffe6e6;
+.container {
+    width: 80%;
+    margin: 0 auto;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    padding: 20px;
+    transition: background 0.5s;
 }
 
-#section3 {
-    background-color: #e6ffe6;
+nav {
+    background: linear-gradient(45deg, #ff5733, #ffbb33); /* Gradient background */
 }
 
-@keyframes rainbow {
-    0% { color: red; }
-    14% { color: orange; }
-    28% { color: yellow; }
-    42% { color: green; }
-    57% { color: blue; }
-    71% { color: indigo; }
-    85% { color: violet; }
-    100% { color: red; }
+.nav-list {
+    list-style-type: none;
+    padding: 0;
+    text-align: center;
 }
 
-.rainbow-text {
-    animation: spin 4s linear infinite, rainbow 4s linear infinite;
+.nav-list li {
+    display: inline;
+    margin: 0 20px;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.nav-list a {
+    text-decoration: none;
+    color: #333; /* Text color */
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.nav-list a:hover {
+    color: #ff5733; /* Hover color */
+}
+
+.section {
+    padding: 40px;
+}
+
+.section h2 {
+    font-size: 24px;
+}
+
+.animated {
+    animation: fadeIn 1s ease-in;
 }
 
 .spin-text {
-    animation: spin 4s linear infinite;
+    animation: spin 5s linear infinite;
+    display: inline-block;
+}
+
+.color-change {
+    animation: colorChange 5s linear infinite;
+    transition: color 0.5s;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes colorChange {
+    0% {
+        color: #ff5733; /* Starting color */
+    }
+    50% {
+        color: #33ff57; /* Midway color */
+    }
+    100% {
+        color: #5733ff; /* Ending color */
+    }
+}
+
+footer {
+    background: linear-gradient(45deg, #333, #555); /* Gradient background */
+    color: white;
+    text-align: center;
+    padding: 20px;
+    transition: background 0.5s;
 }
