@@ -4,6 +4,15 @@ const contentSwitchButton = document.getElementById("content-switch-button");
 let isAboutPage = false;
 const container = document.querySelector(".container");
 let originalContent = container.innerHTML; // Store the original content
+const myButton = document.getElementById('myButton');
+
+function handleButtonClick() {
+    // Change the button's text when clicked
+    myButton.textContent = 'Clicked!';
+}
+
+myButton.addEventListener('click', handleButtonClick);
+
 
 contentSwitchButton.addEventListener("click", function () {
     if (isAboutPage) {

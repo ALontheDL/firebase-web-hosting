@@ -3,6 +3,7 @@ class Main {
         this.pageViewsKey = 'pageViewsCount';
         this.initializeCounter();
         this.displayCount();
+        this.attachEventListeners();
     }
 
     initializeCounter() {
@@ -18,11 +19,45 @@ class Main {
     }
 
     displayCount() {
-        this.incrementCount();
-        // Update count in div id count
-        document.getElementById('count').innerHTML = 'You have visited this page ' + localStorage.getItem(this.pageViewsKey)  + ' times.'
+        document.getElementById('count').innerHTML = 'You have visited this page ' + localStorage.getItem(this.pageViewsKey) + ' times.';
+    }
+
+    // Custom function to reset the counter to zero
+    resetCounter() {
+        localStorage.setItem(this.pageViewsKey, '0');
+        this.displayCount();
+    }
+
+    // Custom function to log the current count to the console
+    logCount() {
+        console.log('Page Views Count: ' + localStorage.getItem(this.pageViewsKey));
+    }
+
+    // Custom function to change the display message
+    changeDisplayMessage() {
+        const displayMessage = document.getElementById('count');
+        displayMessage.innerHTML = 'Thank you for visiting this page ' + localStorage.getItem(this.pageViewsKey) + ' times!';
+    }
+
+    attachEventListeners() {
+        // Event binding for resetting the counter
+        const resetButton = document.getElementById('resetButton');
+        resetButton.addEventListener('click', () => {
+            this.resetCounter();
+        });
+
+        // Event binding for logging the count
+        const logButton = document.getElementById('logButton');
+        logButton.addEventListener('click', () => {
+            this.logCount();
+        });
+
+        // Event binding for changing the display message
+        const changeMessageButton = document.getElementById('changeMessageButton');
+        changeMessageButton.addEventListener('click', () => {
+            this.changeDisplayMessage();
+        });
     }
 }
 
-// Note that we construct the class here, but we don't need to assign it to a variable.
 document.mainClass = new Main();
