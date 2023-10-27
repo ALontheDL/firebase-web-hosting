@@ -18,7 +18,7 @@ let rightScore = 0;
 // Set the sensitivity for the right paddle control
 const rightPaddleSensitivity = 20;
 
-// Control the left paddle with the mouse
+// Control the left paddle with mouse
 document.addEventListener("mousemove", (event) => {
     leftPaddleY = event.clientY - 50;
     leftPaddle.style.top = leftPaddleY + "px";
@@ -32,7 +32,7 @@ document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowDown" && rightPaddleY < (window.innerHeight - 100)) {
         rightPaddleY += rightPaddleSensitivity;
     }
-    rightPaddle.style.top = rightPaddleY + "px";
+    rightPaddle.style top = rightPaddleY + "px";
 });
 
 setInterval(updateGameArea, 20);
@@ -54,11 +54,10 @@ function updateGameArea() {
             ballSpeedX = -ballSpeedX;
         } else if (ballX <= 0) {
             // Ball passed the left paddle
-            // Implement scoring mechanism
             rightScore++;
             rightScoreDisplay.innerText = rightScore;
             resetBall();
-            endGameSession(rightScore);
+            endGameSession(rightScore, db);
         }
     }
 
@@ -67,17 +66,12 @@ function updateGameArea() {
             ballSpeedX = -ballSpeedX;
         } else if (ballX >= window.innerWidth) {
             // Ball passed the right paddle
-            // Implement scoring mechanism
             leftScore++;
             leftScoreDisplay.innerText = leftScore;
             resetBall();
-            endGameSession(leftScore);
+            endGameSession(leftScore, db);
         }
     }
-
-    // Update ball position
-    ball.style.left = ballX + "px";
-    ball.style.top = ballY + "px";
 }
 
 function resetBall() {
@@ -101,7 +95,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = app.firestore();
 
 // Save the user's score to Firestore
-function saveScore(userInitials, userScore) {
+function saveScore(userInitials, userScore, db) {
     if (userScore > 0) {
         db.collection("scores")
             .add({
@@ -129,11 +123,22 @@ function updateScoreList() {
         });
 }
 
-function endGameSession(score) {
+function endGameSession(score, db) {
     if (score === 7) {
         const userInitials = prompt("Enter your initials (3 letters):");
         if (userInitials) {
-            saveScore(userInitials, score);
+            saveScore(userInitials, score, db);
         }
+
+        // Reset the scores to 0-0
+        leftScore = 0;
+        rightScore = 0;
+        leftScoreDisplay.innerText = "0";
+        rightScoreDisplay.innerText = "0";
+
+        // Reset the game area
+        resetBall();
     }
 }
+
+updateGameArea();
