@@ -5,27 +5,87 @@ body {
     height: 100vh;
     margin: 0;
     background-color: #000;
+    overflow: hidden;
 }
 
 .game-container {
     position: relative;
-    width: 800px;
-    height: 400px;
-    background-color: #222;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #33ccff, #ff99cc);
     border: 2px solid #fff;
 }
 
 .ball {
-    width: 20px;
-    height: 20px;
-    background-color: #fff;
+    width: 40px;
+    height: 40px;
+    background-color: #ffcc00;
     position: absolute;
     border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .paddle {
-    width: 20px;
-    height: 100px;
-    background-color: #fff;
+    width: 10px;
+    height: 150px;
+    background-color: #ffffff;
     position: absolute;
+}
+
+#leftPaddle {
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+#rightPaddle {
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.score {
+    position: absolute;
+    color: #fff;
+    font-size: 48px;
+    top: 20px;
+}
+
+#leftScore {
+    left: 20px;
+}
+
+#rightScore {
+    right: 20px;
+}
+
+.divider {
+    position: absolute;
+    width: 2px;
+    height: 100%;
+    background-color: #fff;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.paddle-control {
+    position: absolute;
+    background-color: #444;
+    color: #fff;
+    border: none;
+    width: 60px;
+    height: 40px;
+    font-size: 18px;
+}
+
+.paddle-control:nth-child(1) {
+    top: 30px;
+    left: calc(100% - 80px);
+}
+
+.paddle-control:nth-child(2) {
+    top: 80px;
+    left: calc(100% - 80px);
 }
