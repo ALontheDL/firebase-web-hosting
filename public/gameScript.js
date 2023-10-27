@@ -1,3 +1,6 @@
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+
 const ball = document.getElementById("ball");
 const leftPaddle = document.getElementById("leftPaddle");
 const rightPaddle = document.getElementById("rightPaddle");
@@ -37,6 +40,21 @@ function startGame() {
         }
         rightPaddle.style.top = rightPaddleY + "px";
     });
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyAE-9l7AuNQwjLkTWau6etVg3c1KYrr3PY",
+        authDomain: "alexlee-f0d54.firebaseapp.com",
+        projectId: "alexlee-f0d54",
+        storageBucket: "alexlee-f0d54.appspot.com",
+        messagingSenderId: "1011114170501",
+        appId: "1:1011114170501:web:d8f9473019ea5df967f1ec",
+        measurementId: "G-5VQM91T0KG"
+      };
+    
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+
+    this.db = app.firestore(app);
 
     setInterval(updateGameArea, 20);
     moveBall();
@@ -86,14 +104,30 @@ function resetBall() {
     ballSpeedX = -ballSpeedX;
 }
 
-const firebaseConfig = {
-    apiKey: "AIzaSyAE-9l7AuNQwjLkTWau6etVg3c1KYrr3PY",
-    authDomain: "alexlee-f0d54.firebaseapp.com",
-    projectId: "alexlee-f0d54",
-    storageBucket: "alexlee-f0d54.appspot.com",
-    messagingSenderId: "1011114170501",
-    appId: "1:1011114170501:web:d8f9473019ea5df967f1ec",
-    measurementId: "G-5VQM91T0KG"
-  };
+// Update the score list from Firestore
+updateScoreList() ; {
+    this.db.collection("scores").get().then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            console.log(`${doc.id} => ${doc.data().score}`);
+        });
+    }); }
+
+// Save the user's score to Firestore
+saveScore(userOrUserIP, score); {
+    if (score > 0) {
+        console.log("save score:  TODO grab userOrUserIP: " + userOrUserIP + " " + score);
+        this.db.collection("scores").add({
+            user: userOrUserIP,
+            score: score
+        })
+        .then((docRef) => {
+            console.log("Document written with ID: ", docRef.id);
+            updateScoreList();
+        })
+        .catch((error) => {
+            console.error("Error adding document: ", error);
+        });
+    }
+}
 
 updateGameArea();
